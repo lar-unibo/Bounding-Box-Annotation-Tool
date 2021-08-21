@@ -403,8 +403,11 @@ class ImageFrame(ttk.Frame):
         name_txt = current_img_file.split(".")[0] + ".txt"
         label_txt_filename = os.path.join(self.output_dir, name_txt)
 
+
         if self.labels:
-            np.savetxt(label_txt_filename, self.labels, fmt='%d %1.4f %1.4f %1.4f %1.4f')           
+            f = open(label_txt_filename, "a")
+            np.savetxt(f, self.labels, fmt='%d %1.4f %1.4f %1.4f %1.4f')       
+            f.close()    
 
         self.clear()
         self.img_counter +=1
@@ -632,6 +635,7 @@ class InputFrame(ttk.Frame):
             self.bar_style.configure("LabeledProgressbar", text="{0} / {1}      ".format(self.imgframe.img_counter, len(self.imgframe.img_files)))
             self.frame_bar.update_idletasks()
 
+        self.listframe.clearList()
 
     def on_previous_press(self):
         self.imgframe.back()
@@ -639,6 +643,8 @@ class InputFrame(ttk.Frame):
             self.progress['value']-=self.imgframe.img_counter_step
             self.bar_style.configure("LabeledProgressbar", text="{0} / {1}      ".format(self.imgframe.img_counter, len(self.imgframe.img_files)))
             self.frame_bar.update_idletasks()
+
+        self.listframe.clearList()
 
 
     def on_show_press(self):
@@ -682,6 +688,9 @@ class ListFrame(ttk.Frame):
 
     def deleteLabel(self):
         self.listbox.delete(0)
+
+    def clearList(self):
+        self.listbox.delete(0,'end')
 
 
 class PanelFrame(ttk.Frame):
