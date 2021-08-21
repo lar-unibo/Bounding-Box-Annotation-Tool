@@ -1,0 +1,6 @@
+dog
+bicycle
+car
+eagle
+person
+sheep

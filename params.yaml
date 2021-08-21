@@ -1,0 +1,3 @@
+images_folder: images
+labels_folder: labels
+classes_file: classes.txt
