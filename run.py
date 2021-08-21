@@ -252,7 +252,7 @@ class ImageFrame(ttk.Frame):
         self.idx = 0
 
         # colormap
-        cmap = cm.get_cmap('Set1', len(self.classes_names))    
+        cmap = cm.get_cmap('tab10', len(self.classes_names))    
         self.classes_colors = [rgb2hex(cmap(i)) for i in range(cmap.N)]
         self.classes_colors_rgb = [cmap(i) for i in range(cmap.N)]
 
@@ -471,7 +471,7 @@ class ImageFrame(ttk.Frame):
         elif len(self.list_figures) > 0:
             self.canvas.delete(self.list_figures[-1])
             self.list_figures.pop(-1)
-
+            self.labels.pop(-1)
 
     def deleteLabel(self):
         
@@ -632,7 +632,7 @@ class InputFrame(ttk.Frame):
         self.imgframe.next() 
         if self.progress['value'] < 100 - self.imgframe.img_counter_step:
             self.progress['value']+=self.imgframe.img_counter_step
-            self.bar_style.configure("LabeledProgressbar", text="{0} / {1}      ".format(self.imgframe.img_counter, len(self.imgframe.img_files)))
+            self.bar_style.configure("LabeledProgressbar", text="{0} / {1}      ".format(self.imgframe.img_counter+1, len(self.imgframe.img_files)))
             self.frame_bar.update_idletasks()
 
         self.listframe.clearList()
@@ -641,7 +641,7 @@ class InputFrame(ttk.Frame):
         self.imgframe.back()
         if self.progress['value'] > 0:
             self.progress['value']-=self.imgframe.img_counter_step
-            self.bar_style.configure("LabeledProgressbar", text="{0} / {1}      ".format(self.imgframe.img_counter, len(self.imgframe.img_files)))
+            self.bar_style.configure("LabeledProgressbar", text="{0} / {1}      ".format(self.imgframe.img_counter+1, len(self.imgframe.img_files)))
             self.frame_bar.update_idletasks()
 
         self.listframe.clearList()
